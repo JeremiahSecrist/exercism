@@ -13,7 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'exercism-solutions-syncer[bot]'
     steps:
-      - name: Auto-merge PR
+      - name: Auto-merge PR (no checkout)
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           merge-method: squash
