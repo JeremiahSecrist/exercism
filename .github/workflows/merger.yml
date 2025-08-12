@@ -1,20 +1,18 @@
-name: Auto Merge PRs from exercism-solutions-syncer
+name: Auto-Merge-PRs
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, ready_for_review]
-
-permissions:
-  contents: write
-  pull-requests: write
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
-  automerge:
+  auto-merge:
     runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'exercism-solutions-syncer[bot]'
     steps:
-      - name: Auto-merge PR (no checkout)
-        uses: peter-evans/enable-pull-request-automerge@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run Auto-Merge PRs
+        uses: MinhOmega/auto-merge@v1.0.4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          merge-method: squash
+          github_token: ${{ secrets.GITHUB_TOKEN }}
