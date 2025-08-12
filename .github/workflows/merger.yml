@@ -16,3 +16,11 @@ jobs:
             echo "❌ This workflow only runs for exercism-solutions-syncer[bot]."
             exit 1
           fi
+      - name: automerge
+        uses: pascalgn/automerge-action@v0.16.4
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          MERGE_METHOD: 'squash'
+          MERGE_LABELS: 'automerge,!wip,!work in progress'
+          MERGE_METHOD: 'squash'
+          MERGE_REQUIRED_APPROVALS: '1'
